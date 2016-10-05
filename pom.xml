@@ -17,8 +17,12 @@
         <junit.version>4.12</junit.version>
         <fest.assert.version>2.0M10</fest.assert.version>
 
+        <!-- Logger -->
+        <slf4j.version>1.7.21</slf4j.version>
+
         <!-- Plugins -->
         <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
+        <maven.war.plugin.version>3.0.0</maven.war.plugin.version>
     </properties>
 
     <dependencies>
@@ -41,6 +45,12 @@
             <version>${fest.assert.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -53,6 +63,19 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven.war.plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <manifestEntries>
+                            <dependencies>org.slf4j</dependencies>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
